@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:untitled3/pages/walletpage/walletpage.dart';
 
+import '../utils/const/constcolors.dart';
 import 'homepage/homepage.dart';
 import 'marketspage/marketspage.dart';
 
@@ -14,6 +16,12 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
+  static const List<Widget> _bottomnavbarlist = [
+    MarketsPage(),
+    HomePage(),
+    WalletPage(),
+  ];
+
   void onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -25,19 +33,20 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      backgroundColor: Colors.grey[800],
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: primarycolor,
         onTap: onItemTapped,
-        selectedItemColor: Colors.yellowAccent,
-        unselectedItemColor: Colors.blueGrey,
+        selectedItemColor: Colors.yellow,
+        unselectedItemColor: Colors.black38,
         currentIndex: _selectedIndex,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Markets'),
           BottomNavigationBarItem(icon: Icon(Icons.shop_rounded), label: 'Trade'),
           BottomNavigationBarItem(icon: Icon(Icons.account_balance_wallet_rounded), label: 'Wallet')
         ],
       ),
-      body: HomePage(),
+      body: _bottomnavbarlist[_selectedIndex],
     );
   }
 }

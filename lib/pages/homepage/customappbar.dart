@@ -8,8 +8,6 @@ class HomePageCustomAppBar extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          Text('On Fire Today:', style: TextStyle(fontSize: 30),),
-          SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
