@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:untitled3/pages/tradepage/tradepage.dart';
 import 'package:untitled3/pages/walletpage/walletpage.dart';
 
 import '../utils/const/constcolors.dart';
-import 'homepage/homepage.dart';
 import 'marketspage/marketspage.dart';
 
 class MainPage extends StatefulWidget {
@@ -18,7 +18,7 @@ class _MainPageState extends State<MainPage> {
 
   static const List<Widget> _bottomnavbarlist = [
     MarketsPage(),
-    HomePage(),
+    TradePage(),
     WalletPage(),
   ];
 
@@ -37,7 +37,7 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: primarycolor,
         onTap: onItemTapped,
-        selectedItemColor: Colors.yellow,
+        selectedItemColor: navbarcolor,
         unselectedItemColor: Colors.black38,
         currentIndex: _selectedIndex,
         items: const [

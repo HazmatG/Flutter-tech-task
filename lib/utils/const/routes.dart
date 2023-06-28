@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:untitled3/pages/homepage/homepage.dart';
 import 'package:untitled3/pages/mainpage.dart';
+
+import '../../pages/tradepage/tradepage.dart';
 
 abstract class TechRoutes {
   static const String homepage = '/';
@@ -14,7 +15,7 @@ abstract class TechRoutes {
       case homepage:
         return MaterialPageRoute(builder: (context) => MainPage());
       default:
-        return MaterialPageRoute(builder: (context) => HomePage());
+        return MaterialPageRoute(builder: (context) => TradePage());
     }
   }
 }
