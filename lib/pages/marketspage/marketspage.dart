@@ -18,23 +18,16 @@ class _MarketsPageState extends State<MarketsPage> {
   final CoinController controller = Get.put(CoinController());
   @override
 
-  void initState() {
-    super.initState();
-    getData();
-  }
-
-  getData() async {
-
-  }
 
   @override
   Widget build(BuildContext context) {
     return ListView(
+      physics: ScrollPhysics(),
       children: [
-        MarketsCustomAppBar(),
-        Obx(()=> controller.isLoading.value ? Center(child: const CircularProgressIndicator()) : ListView.builder(
+        const MarketsCustomAppBar(),
+        Obx(()=> controller.isLoading.value ? const Center(child: CircularProgressIndicator()) : ListView.builder(
             shrinkWrap: true,
-              itemCount: 10,
+              itemCount: 15,
               itemBuilder: (context, index){
             return CoinListTileWidget(price: controller.coinsList[index].currentPrice,
               bitname: controller.coinsList[index].symbol.toUpperCase(), pricechange: controller.coinsList[index].priceChangePercentage24H, upper: controller.coinsList[index].totalVolume);

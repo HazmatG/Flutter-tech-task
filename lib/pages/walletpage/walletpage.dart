@@ -10,8 +10,11 @@ class WalletPage extends StatelessWidget {
     return ListView(
       children: [
         const WalletCustomAppBar(),
+        const Padding(
+          padding: EdgeInsets.all(18.0),
+          child: Icon(Icons.account_circle_outlined, size: 120, color: Colors.white60,),
+        ),
         SizedBox(
-          height: 250,
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -34,6 +37,7 @@ class WalletPage extends StatelessWidget {
             ),
           ),
         ),
+        SizedBox(height: 30),
         const Text('Assets:', style: TextStyle(fontSize: 22, color: Colors.white,),),
       ],
     );
@@ -51,7 +55,7 @@ class ButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         color: Colors.grey,
         borderRadius: BorderRadius.circular(30)
@@ -61,7 +65,7 @@ class ButtonWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Icon(Icons.telegram_rounded, color: Colors.white,),
-          Text(title, style: TextStyle(fontSize: 25, color: Colors.white,),),
+          Text(title, style: const TextStyle(fontSize: 25, color: Colors.white,),),
         ],
       ),
     );

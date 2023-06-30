@@ -9,125 +9,143 @@ class TradePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        const TradePageCustomAppBar(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SizedBox(
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: primarycolor, elevation: 0),
-                        child: const SizedBox(
-                          width: 60,
-                          child: Center(
-                            child: Text(
-                              'Buy',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ),
-                      ElevatedButton(
+    return Scaffold(
+      backgroundColor: primarycolor,
+      body: ListView(
+        children: [
+          const TradePageCustomAppBar(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: coinpricedowncolor,
-                              elevation: 0),
+                              backgroundColor: primarycolor, elevation: 0),
                           child: const SizedBox(
                             width: 60,
                             child: Center(
                               child: Text(
-                                'Sell',
+                                'Buy',
                                 style: TextStyle(color: Colors.white),
                               ),
                             ),
-                          )),
-                    ],
-                  ),
-                  NumberSettings(),
-                  NumberSettings(),
-                  Container(
-                    margin: const EdgeInsets.all(6.0),
-                    height: 40,
-                    width: 180,
-                    decoration:
-                        BoxDecoration(border: Border.all(color: Colors.white)),
-                    child: Center(
-                      child: Text(
-                        '\$ 100.00',
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                        ),
+                        ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: coinpricedowncolor,
+                                elevation: 0),
+                            child: const SizedBox(
+                              width: 60,
+                              child: Center(
+                                child: Text(
+                                  'Sell',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            )),
+                      ],
+                    ),
+                    const NumberSettings(),
+                    const NumberSettings(),
+                    Container(
+                      margin: const EdgeInsets.all(6.0),
+                      height: 40,
+                      width: 180,
+                      decoration:
+                          BoxDecoration(border: Border.all(color: Colors.white)),
+                      child: const Center(
+                        child: Text(
+                          '\$ 100.00',
+                          style:
+                              TextStyle(color: Colors.white, fontSize: 20),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        Text(
+                          'AVBL:',
+                          style:
+                          TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                        Text(
+                          '0',
+                          style:
+                          TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(
-              child: Column(
-                children: [
-                  Text('Price',
-                      style: TextStyle(color: greycolor, fontSize: 22)),
-                  Text('0.000012',
-                      style: TextStyle(color: Colors.red, fontSize: 18)),
-                  Text('0.000012',
-                      style: TextStyle(color: Colors.red, fontSize: 18)),
-                  Text('0.000012',
-                      style: TextStyle(color: Colors.red, fontSize: 18)),
-                  Text('0.000012',
-                      style: TextStyle(color: Colors.red, fontSize: 18)),
-                  Text('0.000012',
-                      style: TextStyle(color: Colors.red, fontSize: 18)),
-                  Text('0.000012',
-                      style: TextStyle(color: Colors.red, fontSize: 18)),
-                  Text('0.000012',
-                      style: TextStyle(color: Colors.red, fontSize: 18)),
-                  Text('0.000012',
-                      style: TextStyle(color: Colors.red, fontSize: 18)),
-                ],
+              SizedBox(
+                child: Column(
+                  children: [
+                    Text('Price',
+                        style: TextStyle(color: greycolor, fontSize: 22)),
+                    const Text('0.000012',
+                        style: TextStyle(color: Colors.red, fontSize: 18)),
+                    const Text('0.000012',
+                        style: TextStyle(color: Colors.red, fontSize: 18)),
+                    const Text('0.000012',
+                        style: TextStyle(color: Colors.red, fontSize: 18)),
+                    const Text('0.000012',
+                        style: TextStyle(color: Colors.red, fontSize: 18)),
+                    const Text('0.000012',
+                        style: TextStyle(color: Colors.red, fontSize: 18)),
+                    const Text('0.000012',
+                        style: TextStyle(color: Colors.red, fontSize: 18)),
+                    const Text('0.000012',
+                        style: TextStyle(color: Colors.red, fontSize: 18)),
+                    const Text('0.000012',
+                        style: TextStyle(color: Colors.red, fontSize: 18)),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(width: 20),
-            SizedBox(
-              child: Column(
-                children: [
-                  Text('Amount',
-                      style: TextStyle(color: greycolor, fontSize: 22)),
-                  Text('1453',
-                      style: TextStyle(color: Colors.white, fontSize: 18)),
-                  Text('1453',
-                      style: TextStyle(color: Colors.white, fontSize: 18)),
-                  Text('1453',
-                      style: TextStyle(color: Colors.white, fontSize: 18)),
-                  Text('1453',
-                      style: TextStyle(color: Colors.white, fontSize: 18)),
-                  Text('1453',
-                      style: TextStyle(color: Colors.white, fontSize: 18)),
-                  Text('1453',
-                      style: TextStyle(color: Colors.white, fontSize: 18)),
-                  Text('1453',
-                      style: TextStyle(color: Colors.white, fontSize: 18)),
-                  Text('1453',
-                      style: TextStyle(color: Colors.white, fontSize: 18)),
-                ],
+              const SizedBox(width: 20),
+              SizedBox(
+                child: Column(
+                  children: [
+                    Text('Amount',
+                        style: TextStyle(color: greycolor, fontSize: 22)),
+                    const Text('1453',
+                        style: TextStyle(color: Colors.white, fontSize: 18)),
+                    const Text('1453',
+                        style: TextStyle(color: Colors.white, fontSize: 18)),
+                    const Text('1453',
+                        style: TextStyle(color: Colors.white, fontSize: 18)),
+                    const Text('1453',
+                        style: TextStyle(color: Colors.white, fontSize: 18)),
+                    const Text('1453',
+                        style: TextStyle(color: Colors.white, fontSize: 18)),
+                    const Text('1453',
+                        style: TextStyle(color: Colors.white, fontSize: 18)),
+                    const Text('1453',
+                        style: TextStyle(color: Colors.white, fontSize: 18)),
+                    const Text('1453',
+                        style: TextStyle(color: Colors.white, fontSize: 18)),
+                  ],
+                ),
               ),
-            ),
-          ],
-        )
-      ],
+            ],
+          )
+        ],
+      ),
     );
   }
 }
 
 class NumberSettings extends StatefulWidget {
-  NumberSettings({super.key});
+  const NumberSettings({super.key});
 
   @override
   State<NumberSettings> createState() => _NumberSettingsState();
@@ -159,7 +177,7 @@ class _NumberSettingsState extends State<NumberSettings> {
             },
           ),
           Text(
-            '${num}',
+            '$num',
             style: const TextStyle(color: Colors.white, fontSize: 20),
           ),
           IconButton(
