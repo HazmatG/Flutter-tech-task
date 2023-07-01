@@ -1,9 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:go_router/go_router.dart';
 import 'package:untitled3/pages/walletpage/walletcustomappbar.dart';
 import 'package:untitled3/widgets/coinlisttile.dart';
 
-class WalletPage extends StatelessWidget {
+import '../../models/models.dart';
+import '../../utils/const/constcolors.dart';
+import '../../utils/const/routes.dart';
+import '../mainpage.dart';
+
+double balance = 0.0;
+
+class WalletPage extends StatefulWidget {
   const WalletPage({Key? key}) : super(key: key);
+
+  @override
+  State<WalletPage> createState() => _WalletPageState();
+}
+
+class _WalletPageState extends State<WalletPage> {
+  final CoinController controller = Get.put(CoinController());
 
   @override
   Widget build(BuildContext context) {
@@ -12,25 +29,33 @@ class WalletPage extends StatelessWidget {
         const WalletCustomAppBar(),
         const Padding(
           padding: EdgeInsets.all(18.0),
-          child: Icon(Icons.account_circle_outlined, size: 120, color: Colors.white60,),
+          child: Icon(
+            Icons.account_circle_outlined,
+            size: 120,
+            color: Colors.white60,
+          ),
         ),
         SizedBox(
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('Total Balance', style: TextStyle(fontSize: 18, color: Colors.white60),),
-                // Text('6.4520 ETH', style: TextStyle(fontSize: 30, color: Colors.white),),
-                const Padding(
+                const Text(
+                  'Total Balance',
+                  style: TextStyle(fontSize: 18, color: Colors.white60),
+                ),
+                Padding(
                   padding: EdgeInsets.symmetric(vertical: 10.0),
-                  child: Text('\$ 16.0045', style: TextStyle(fontSize: 36, color: Colors.white),),
+                  child: Text(
+                    '$balance\$',
+                    style: TextStyle(fontSize: 36, color: Colors.white),
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    ButtonWidget(title: 'Sent'),
-                    ButtonWidget(title: 'Recieve'),
-                    ButtonWidget(title: 'Buy'),
+                    ButtonWidget(title: 'Replenish'),
+                    ButtonWidget(title: 'Buy Crypto'),
                   ],
                 )
               ],
@@ -38,34 +63,115 @@ class WalletPage extends StatelessWidget {
           ),
         ),
         SizedBox(height: 30),
-        const Text('Assets:', style: TextStyle(fontSize: 22, color: Colors.white,),),
+        const Text(
+          'Assets:',
+          style: TextStyle(
+            fontSize: 22,
+            color: Colors.white,
+          ),
+        ),
+        // ListView.builder(
+        //     shrinkWrap: true,
+        //     itemCount: 2,
+        //     itemBuilder: (context, index) {
+        //       return CoinListTileWidget(
+        //         ispurchased: true,
+        //           price: controller.coinsList[index].currentPrice,
+        //           bitname: controller.coinsList[index].symbol.toUpperCase(),
+        //           pricechange:
+        //               controller.coinsList[index].priceChangePercentage24H,
+        //           upper: controller.coinsList[index].totalVolume);
+        //     })
       ],
     );
   }
 }
 
-class ButtonWidget extends StatelessWidget {
-  ButtonWidget({
-    super.key,
-  required this.title
-  });
+class ButtonWidget extends StatefulWidget {
+  ButtonWidget({super.key, required this.title});
 
   final String title;
 
   @override
+  State<ButtonWidget> createState() => _ButtonWidgetState();
+}
+
+class _ButtonWidgetState extends State<ButtonWidget> {
+  var balancereplenish = TextEditingController();
+
+  showBottomSheet(BuildContext context) {
+    showModalBottomSheet(context: context, builder: (BuildContext context) {
+      return Container(
+        color: primarycolor,
+        height: 400,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 18.0),
+              child: Text('REPLENISH ACCOUNT BALANCE WITH FIAT', style: TextStyle(color: Colors.white, fontSize: 18),),
+            ),
+            TextField(decoration: InputDecoration(
+                suffixIcon: Icon(Icons.attach_money, color: navbarcolor)
+            ),
+              controller: balancereplenish,
+              keyboardType: TextInputType.number,
+              style: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
+            ),
+            SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: () async {
+                setState(() {
+                  Navigator.pop(context);
+                  balance = double.parse(balancereplenish.text);
+                  balancereplenish.text = '';
+                  final snackbar = SnackBar(
+                    content: Text('Balance has been succesfully replenished'),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                });
+              },
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: greycolor, elevation: 0),
+              child: SizedBox(
+                width: 180,
+                child: Center(
+                  child: Text(
+                    'REPLENISH BALANCE',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
-        color: Colors.grey,
-        borderRadius: BorderRadius.circular(30)
-      ),
-      height: 40,
+    return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: greycolor,
+          elevation: 0
+        ),
+      onPressed: () {
+        showBottomSheet(context);
+      },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(Icons.telegram_rounded, color: Colors.white,),
-          Text(title, style: const TextStyle(fontSize: 25, color: Colors.white,),),
+          const Icon(
+            Icons.monetization_on,
+            color: Colors.white,
+          ),
+          Text(
+            widget.title,
+            style: const TextStyle(
+              fontSize: 18,
+              color: Colors.white,
+            ),
+          ),
         ],
       ),
     );

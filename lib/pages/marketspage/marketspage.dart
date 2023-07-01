@@ -22,14 +22,14 @@ class _MarketsPageState extends State<MarketsPage> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      physics: ScrollPhysics(),
       children: [
         const MarketsCustomAppBar(),
         Obx(()=> controller.isLoading.value ? const Center(child: CircularProgressIndicator()) : ListView.builder(
+          physics: ScrollPhysics(),
             shrinkWrap: true,
-              itemCount: 15,
+              itemCount: controller.coinsList.length,
               itemBuilder: (context, index){
-            return CoinListTileWidget(price: controller.coinsList[index].currentPrice,
+            return CoinListTileWidget(ispurchased: false,price: controller.coinsList[index].currentPrice,
               bitname: controller.coinsList[index].symbol.toUpperCase(), pricechange: controller.coinsList[index].priceChangePercentage24H, upper: controller.coinsList[index].totalVolume);
           }),
         )

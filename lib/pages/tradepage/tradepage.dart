@@ -1,17 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:untitled3/pages/tradepage/tradecustomappbar.dart';
 
+import '../../models/models.dart';
 import '../../utils/const/constcolors.dart';
+import '../../widgets/coinlisttile.dart';
 
-class TradePage extends StatelessWidget {
+class TradePage extends StatefulWidget {
   const TradePage({Key? key}) : super(key: key);
 
   @override
+  State<TradePage> createState() => _TradePageState();
+}
+
+class _TradePageState extends State<TradePage> {
+  final CoinController controller = Get.put(CoinController());
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: primarycolor,
-      body: ListView(
+    return ListView(
         children: [
           const TradePageCustomAppBar(),
           Row(
@@ -20,39 +30,6 @@ class TradePage extends StatelessWidget {
               SizedBox(
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: primarycolor, elevation: 0),
-                          child: const SizedBox(
-                            width: 60,
-                            child: Center(
-                              child: Text(
-                                'Buy',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ),
-                        ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: coinpricedowncolor,
-                                elevation: 0),
-                            child: const SizedBox(
-                              width: 60,
-                              child: Center(
-                                child: Text(
-                                  'Sell',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            )),
-                      ],
-                    ),
                     const NumberSettings(),
                     const NumberSettings(),
                     Container(
@@ -83,6 +60,20 @@ class TradePage extends StatelessWidget {
                           TextStyle(color: Colors.white, fontSize: 16),
                         ),
                       ],
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: primarycolor, elevation: 0),
+                      child: SizedBox(
+                        width: 120,
+                        child: Center(
+                          child: Text(
+                            'Buy',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -137,9 +128,21 @@ class TradePage extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+          SizedBox(height: 50),
+          Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Obx(()=> controller.isLoading.value ? const Center(child: CircularProgressIndicator()) : ListView.builder(
+              physics: ScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: 15,
+                itemBuilder: (context, index){
+                  return CoinListTileWidget(ispurchased: false,price: controller.coinsList[index].currentPrice,
+                      bitname: controller.coinsList[index].symbol.toUpperCase(), pricechange: controller.coinsList[index].priceChangePercentage24H, upper: controller.coinsList[index].totalVolume);
+                }),
+            ),
           )
         ],
-      ),
     );
   }
 }

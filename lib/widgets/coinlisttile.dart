@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:untitled3/pages/mainpage.dart';
-import 'package:untitled3/pages/tradepage/tradepage.dart';
 import 'package:untitled3/utils/const/constcolors.dart';
-import 'package:untitled3/utils/const/routes.dart';
 
 class CoinListTileWidget extends StatelessWidget {
-  CoinListTileWidget({Key? key,required this.price, required this.bitname,required this.pricechange, required this.upper}) : super(key: key);
+  CoinListTileWidget({Key? key,required this.price, required this.bitname,required this.pricechange, required this.upper, required this.ispurchased}) : super(key: key);
 
   String bitname;
   double price;
   double pricechange;
   double upper;
+  bool ispurchased;
 
   void _buyrequest(BuildContext context) {
 
@@ -22,7 +20,7 @@ class CoinListTileWidget extends StatelessWidget {
       content: Wrap(
         children: [
           Center(child: Text('Buy $bitname', style: TextStyle(color: navbarcolor, fontWeight: FontWeight.w400, fontSize: 24))),
-          TextFormField(decoration: InputDecoration(
+          TextField(decoration: InputDecoration(
             suffixIcon: Icon(Icons.attach_money, color: navbarcolor)
           ),
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
@@ -52,7 +50,7 @@ class CoinListTileWidget extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 Navigator.pop(context);
                 final snackbar = SnackBar(
                   content: Text('Thanks for purchasing'),
@@ -82,9 +80,7 @@ class CoinListTileWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
-      child: GestureDetector(
-        onTap: () {
-        },
+      child: SizedBox(
         child:
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -105,7 +101,22 @@ class CoinListTileWidget extends StatelessWidget {
                 width: 100,
                 child: Center(child: Text(pricechange.toString(), style: TextStyle(color: Colors.white, fontSize: 18),),
                 )),
-            ElevatedButton(
+            ispurchased == true ? ElevatedButton(
+              onPressed: () {
+
+              },
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: coinpricedowncolor, elevation: 0),
+              child: const SizedBox(
+                width: 60,
+                child: Center(
+                  child: Text(
+                    'Sell',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ) : ElevatedButton(
               onPressed: () {
                 _buyrequest(context);
               },
