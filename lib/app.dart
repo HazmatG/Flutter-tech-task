@@ -21,7 +21,7 @@ class TechTask extends StatelessWidget {
 GoRouter router = GoRouter(
   initialLocation: TechRoutes.homepage,
 routes: [
-  GoRoute(path: TechRoutes.homepage, builder: (context, state) => MainPage()),
-  GoRoute(path: TechRoutes.tradepage, builder: (context, state) => TradePage()),
-  GoRoute(path: TechRoutes.tradepage, builder: (context, state) => WalletPage()),
+  GoRoute(path: TechRoutes.homepage, builder: (context, state) => MainPage(), name: 'hp'),
+  GoRoute(path: TechRoutes.tradepage, builder: (context, state) => TradePage(),  name: 'tp'),
+  GoRoute(path: TechRoutes.walletpage, builder: (context, state) => WalletPage(),  name: 'wp'),
 ]);

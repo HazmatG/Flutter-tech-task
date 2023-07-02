@@ -21,128 +21,26 @@ class _TradePageState extends State<TradePage> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-        children: [
-          const TradePageCustomAppBar(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                child: Column(
-                  children: [
-                    const NumberSettings(),
-                    const NumberSettings(),
-                    Container(
-                      margin: const EdgeInsets.all(6.0),
-                      height: 40,
-                      width: 180,
-                      decoration:
-                          BoxDecoration(border: Border.all(color: Colors.white)),
-                      child: const Center(
-                        child: Text(
-                          '\$ 100.00',
-                          style:
-                              TextStyle(color: Colors.white, fontSize: 20),
-                        ),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text(
-                          'AVBL:',
-                          style:
-                          TextStyle(color: Colors.white, fontSize: 16),
-                        ),
-                        Text(
-                          '0',
-                          style:
-                          TextStyle(color: Colors.white, fontSize: 16),
-                        ),
-                      ],
-                    ),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: primarycolor, elevation: 0),
-                      child: SizedBox(
-                        width: 120,
-                        child: Center(
-                          child: Text(
-                            'Buy',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+    return Scaffold(
+      backgroundColor: primarycolor,
+      body: ListView(
+          children: [
+            const TradePageCustomAppBar(),
+            SizedBox(height: 50),
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Obx(()=> controller.isLoading.value ? const Center(child: CircularProgressIndicator()) : ListView.builder(
+                physics: ScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: 15,
+                  itemBuilder: (context, index){
+                    return CoinListTileWidget(ispurchased: false,price: controller.coinsList[index].currentPrice,
+                        bitname: controller.coinsList[index].symbol.toUpperCase(), pricechange: controller.coinsList[index].priceChangePercentage24H, upper: controller.coinsList[index].totalVolume);
+                  }),
               ),
-              SizedBox(
-                child: Column(
-                  children: [
-                    Text('Price',
-                        style: TextStyle(color: greycolor, fontSize: 22)),
-                    const Text('0.000012',
-                        style: TextStyle(color: Colors.red, fontSize: 18)),
-                    const Text('0.000012',
-                        style: TextStyle(color: Colors.red, fontSize: 18)),
-                    const Text('0.000012',
-                        style: TextStyle(color: Colors.red, fontSize: 18)),
-                    const Text('0.000012',
-                        style: TextStyle(color: Colors.red, fontSize: 18)),
-                    const Text('0.000012',
-                        style: TextStyle(color: Colors.red, fontSize: 18)),
-                    const Text('0.000012',
-                        style: TextStyle(color: Colors.red, fontSize: 18)),
-                    const Text('0.000012',
-                        style: TextStyle(color: Colors.red, fontSize: 18)),
-                    const Text('0.000012',
-                        style: TextStyle(color: Colors.red, fontSize: 18)),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 20),
-              SizedBox(
-                child: Column(
-                  children: [
-                    Text('Amount',
-                        style: TextStyle(color: greycolor, fontSize: 22)),
-                    const Text('1453',
-                        style: TextStyle(color: Colors.white, fontSize: 18)),
-                    const Text('1453',
-                        style: TextStyle(color: Colors.white, fontSize: 18)),
-                    const Text('1453',
-                        style: TextStyle(color: Colors.white, fontSize: 18)),
-                    const Text('1453',
-                        style: TextStyle(color: Colors.white, fontSize: 18)),
-                    const Text('1453',
-                        style: TextStyle(color: Colors.white, fontSize: 18)),
-                    const Text('1453',
-                        style: TextStyle(color: Colors.white, fontSize: 18)),
-                    const Text('1453',
-                        style: TextStyle(color: Colors.white, fontSize: 18)),
-                    const Text('1453',
-                        style: TextStyle(color: Colors.white, fontSize: 18)),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 50),
-          Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: Obx(()=> controller.isLoading.value ? const Center(child: CircularProgressIndicator()) : ListView.builder(
-              physics: ScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 15,
-                itemBuilder: (context, index){
-                  return CoinListTileWidget(ispurchased: false,price: controller.coinsList[index].currentPrice,
-                      bitname: controller.coinsList[index].symbol.toUpperCase(), pricechange: controller.coinsList[index].priceChangePercentage24H, upper: controller.coinsList[index].totalVolume);
-                }),
-            ),
-          )
-        ],
+            )
+          ],
+      ),
     );
   }
 }

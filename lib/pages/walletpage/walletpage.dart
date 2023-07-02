@@ -5,8 +5,8 @@ import 'package:hive/hive.dart';
 import 'package:untitled3/pages/walletpage/walletcustomappbar.dart';
 import '../../models/models.dart';
 import '../../utils/const/constcolors.dart';
+import '../../widgets/coinlisttile.dart';
 
-double balance = 0.0;
 
 class WalletPage extends StatefulWidget {
   const WalletPage({Key? key}) : super(key: key);
@@ -19,10 +19,13 @@ class _WalletPageState extends State<WalletPage> {
   final CoinController _bcontroller = Get.put(CoinController());
   final _balancereplenish = TextEditingController();
   final _balanceBox = Hive.box('CryptoBox');
+  double balance = 0.0;
 
   void dispose() {
+    super.dispose();
     _balancereplenish.dispose();
   }
+
 
   void _addBalanceData() {
     _balanceBox.put(1, double.parse(_balancereplenish.text));
@@ -150,18 +153,18 @@ class _WalletPageState extends State<WalletPage> {
             color: Colors.white,
           ),
         ),
-        // ListView.builder(
-        //     shrinkWrap: true,
-        //     itemCount: 2,
-        //     itemBuilder: (context, index) {
-        //       return CoinListTileWidget(
-        //         ispurchased: true,
-        //           price: controller.coinsList[index].currentPrice,
-        //           bitname: controller.coinsList[index].symbol.toUpperCase(),
-        //           pricechange:
-        //               controller.coinsList[index].priceChangePercentage24H,
-        //           upper: controller.coinsList[index].totalVolume);
-        //     })
+        ListView.builder(
+            shrinkWrap: true,
+            itemCount: 2,
+            itemBuilder: (context, index) {
+              return CoinListTileWidget(
+                ispurchased: true,
+                  price: _bcontroller.coinsList[index].currentPrice,
+                  bitname: _bcontroller.coinsList[index].symbol.toUpperCase(),
+                  pricechange:
+                  _bcontroller.coinsList[index].priceChangePercentage24H,
+                  upper: _bcontroller.coinsList[index].totalVolume);
+            })
       ],
     );
   }

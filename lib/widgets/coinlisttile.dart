@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:untitled3/utils/const/constcolors.dart';
+import 'package:untitled3/utils/const/routes.dart';
 
 class CoinListTileWidget extends StatelessWidget {
   CoinListTileWidget({Key? key,required this.price, required this.bitname,required this.pricechange, required this.upper, required this.ispurchased}) : super(key: key);
 
   String bitname;
   double price;
+  double available = 0;
   double pricechange;
   double upper;
   bool ispurchased;
@@ -23,8 +26,12 @@ class CoinListTileWidget extends StatelessWidget {
           TextField(decoration: InputDecoration(
             suffixIcon: Icon(Icons.attach_money, color: navbarcolor)
           ),
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
             controller: editControl,
+            keyboardType: TextInputType.number,
+            onChanged: (text) {
+              available + 1;
+            },
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 28.0),
@@ -33,15 +40,15 @@ class CoinListTileWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Current Price:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),),
-                    Text('$price', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),),
+                    const Text('Current Price:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),),
+                    Text('$price', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Available:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),),
-                    Text('${price}', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),),
+                    const Text('Available:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),),
+                    Text('${available}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),),
                   ],
                 ),
               ],
@@ -51,8 +58,9 @@ class CoinListTileWidget extends StatelessWidget {
             alignment: Alignment.center,
             child: ElevatedButton(
               onPressed: () async {
+                context.goNamed('tp');
                 Navigator.pop(context);
-                final snackbar = SnackBar(
+                const snackbar = SnackBar(
                   content: Text('Thanks for purchasing'),
                 );
                 ScaffoldMessenger.of(context).showSnackBar(snackbar);
@@ -65,7 +73,7 @@ class CoinListTileWidget extends StatelessWidget {
                 child: Center(
                   child: Text(
                     'BUY $bitname',
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                   ),
                 ),
               ),
@@ -89,7 +97,7 @@ class CoinListTileWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(bitname, style: TextStyle(fontWeight: FontWeight.bold, color: navbarcolor, fontSize: 20)),
-                Text('\$ ${price.toString()}', style: TextStyle(color: Colors.white, fontSize: 17),),
+                Text('\$ ${price.toString()}', style: const TextStyle(color: Colors.white, fontSize: 17),),
               ],
             ),
             Container(
@@ -99,7 +107,7 @@ class CoinListTileWidget extends StatelessWidget {
                 ),
                 height: 30,
                 width: 100,
-                child: Center(child: Text(pricechange.toString(), style: TextStyle(color: Colors.white, fontSize: 18),),
+                child: Center(child: Text(pricechange.toString(), style: const TextStyle(color: Colors.white, fontSize: 18),),
                 )),
             ispurchased == true ? ElevatedButton(
               onPressed: () {
