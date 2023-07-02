@@ -18,8 +18,8 @@ class WalletPage extends StatefulWidget {
 class _WalletPageState extends State<WalletPage> {
   final CoinController _bcontroller = Get.put(CoinController());
   final _balancereplenish = TextEditingController();
+  final _moneywithdraw = TextEditingController();
   final _balanceBox = Hive.box('CryptoBox');
-  double balance = 0.0;
 
   void dispose() {
     super.dispose();
@@ -32,7 +32,12 @@ class _WalletPageState extends State<WalletPage> {
     print(_balanceBox.get(1));
   }
 
-  showBottomSheet(BuildContext context) {
+  void _subtractBalanceData() {
+    _balanceBox.put(1, double.parse(_balancereplenish.text) - 100);
+    print(_balanceBox.get(1));
+  }
+
+  repBalBottomSheet(BuildContext context) {
     showModalBottomSheet(context: context, builder: (BuildContext context) {
       return Container(
         color: primarycolor,
@@ -56,7 +61,6 @@ class _WalletPageState extends State<WalletPage> {
                 setState(() {
                   _addBalanceData();
                   Navigator.pop(context);
-                  balance = double.parse(_balancereplenish.text);
                   _balancereplenish.text = '';
                   const snackbar = SnackBar(
                     content: Text('Balance has been successfully replenished'),
@@ -81,9 +85,57 @@ class _WalletPageState extends State<WalletPage> {
       );
     });
   }
+  withMonBottomSheet(BuildContext context) {
+    showModalBottomSheet(context: context, builder: (BuildContext context) {
+      return Container(
+        color: primarycolor,
+        height: 400,
+        child: Column(
+          children: [
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 18.0),
+              child: Text('Withdraw money to Visa', style: TextStyle(color: Colors.white, fontSize: 18),),
+            ),
+            TextField(decoration: InputDecoration(
+                suffixIcon: Icon(Icons.attach_money, color: navbarcolor)
+            ),
+              controller: _moneywithdraw,
+              keyboardType: TextInputType.number,
+              style: const TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
+            ),
+            const SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: () async {
+                setState(() {
+                  Navigator.pop(context);
+                  _moneywithdraw.text = '';
+                  const snackbar = SnackBar(
+                    content: Text('Money has been sent to your Visa Card'),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                });
+              },
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: greycolor, elevation: 0),
+              child: const SizedBox(
+                width: 180,
+                child: Center(
+                  child: Text(
+                    'REPLENISH BALANCE',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return ListView(
       children: [
         const WalletCustomAppBar(),
@@ -107,7 +159,7 @@ class _WalletPageState extends State<WalletPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Text(
-                    '$balance\$',
+                    '${_balanceBox.get(1)}\$',
                     style: const TextStyle(fontSize: 36, color: Colors.white),
                   ),
                 ),
@@ -120,7 +172,7 @@ class _WalletPageState extends State<WalletPage> {
                         elevation: 0
                     ),
                     onPressed: () {
-                      showBottomSheet(context);
+                      repBalBottomSheet(context);
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -138,7 +190,32 @@ class _WalletPageState extends State<WalletPage> {
                         ),
                       ],
                     ),
-                  )
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: greycolor,
+                        elevation: 0
+                    ),
+                    onPressed: () {
+                      withMonBottomSheet(context);
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(
+                          Icons.monetization_on,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          'Withdraw',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   ],
                 )
               ],

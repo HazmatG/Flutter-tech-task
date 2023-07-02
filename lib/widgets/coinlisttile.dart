@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive/hive.dart';
 import 'package:untitled3/utils/const/constcolors.dart';
 import 'package:untitled3/utils/const/routes.dart';
 
@@ -13,6 +14,7 @@ class CoinListTileWidget extends StatelessWidget {
   double upper;
   bool ispurchased;
 
+  final _balanceBox = Hive.box('CryptoBox');
   void _buyrequest(BuildContext context) {
 
     var editControl = TextEditingController();
@@ -40,15 +42,15 @@ class CoinListTileWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Current Price:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),),
-                    Text('$price', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),),
+                    const Text('Your total balance:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),),
+                    Text('${_balanceBox.get(1)}\$', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Available:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),),
-                    Text('${available}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),),
+                    const Text('Current Price:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),),
+                    Text('$price', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),),
                   ],
                 ),
               ],
@@ -58,7 +60,7 @@ class CoinListTileWidget extends StatelessWidget {
             alignment: Alignment.center,
             child: ElevatedButton(
               onPressed: () async {
-                context.goNamed('tp');
+                // context.goNamed('tp');
                 Navigator.pop(context);
                 const snackbar = SnackBar(
                   content: Text('Thanks for purchasing'),
