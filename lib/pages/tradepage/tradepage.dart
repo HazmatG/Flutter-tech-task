@@ -21,80 +21,25 @@ class _TradePageState extends State<TradePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: primarycolor,
-      body: ListView(
+    return ListView(
           children: [
             const TradePageCustomAppBar(),
-            SizedBox(height: 50),
-            Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: Obx(()=> controller.isLoading.value ? const Center(child: CircularProgressIndicator()) : ListView.builder(
-                physics: ScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: 15,
-                  itemBuilder: (context, index){
-                    return CoinListTileWidget(ispurchased: false,price: controller.coinsList[index].currentPrice,
-                        bitname: controller.coinsList[index].symbol.toUpperCase(), pricechange: controller.coinsList[index].priceChangePercentage24H, upper: controller.coinsList[index].totalVolume);
-                  }),
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Your Wallet:', style: TextStyle(color: Colors.white, fontSize: 25),),
+                Obx(()=> controller.isLoading.value ? const Center(child: CircularProgressIndicator()) : ListView.builder(
+                  physics: ScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: 4,
+                    itemBuilder: (context, index){
+                      return CoinListTileWidget(ispurchased: true,price: controller.coinsList[index].currentPrice,
+                          bitname: controller.coinsList[index].symbol.toUpperCase(), pricechange: controller.coinsList[index].priceChangePercentage24H, upper: controller.coinsList[index].totalVolume);
+                    }),
+                ),
+              ],
             )
           ],
-      ),
-    );
-  }
-}
-
-class NumberSettings extends StatefulWidget {
-  const NumberSettings({super.key});
-
-  @override
-  State<NumberSettings> createState() => _NumberSettingsState();
-}
-
-class _NumberSettingsState extends State<NumberSettings> {
-  int num = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(6.0),
-      height: 40,
-      width: 180,
-      decoration: BoxDecoration(border: Border.all(color: Colors.white)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          IconButton(
-            icon: const Icon(
-              CupertinoIcons.minus,
-              size: 20,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              setState(() {
-                if (num > 0) num--;
-              });
-            },
-          ),
-          Text(
-            '$num',
-            style: const TextStyle(color: Colors.white, fontSize: 20),
-          ),
-          IconButton(
-            icon: const Icon(
-              CupertinoIcons.plus,
-              size: 20,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              setState(() {
-                num++;
-              });
-            },
-          ),
-        ],
-      ),
     );
   }
 }

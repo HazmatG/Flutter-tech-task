@@ -9,7 +9,6 @@ class CoinListTileWidget extends StatelessWidget {
 
   String bitname;
   double price;
-  double available = 0;
   double pricechange;
   double upper;
   bool ispurchased;
@@ -25,16 +24,6 @@ class CoinListTileWidget extends StatelessWidget {
       content: Wrap(
         children: [
           Center(child: Text('Buy $bitname', style: TextStyle(color: navbarcolor, fontWeight: FontWeight.w400, fontSize: 24))),
-          TextField(decoration: InputDecoration(
-            suffixIcon: Icon(Icons.attach_money, color: navbarcolor)
-          ),
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
-            controller: editControl,
-            keyboardType: TextInputType.number,
-            onChanged: (text) {
-              available + 1;
-            },
-          ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 28.0),
             child: Column(
@@ -42,15 +31,15 @@ class CoinListTileWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Your total balance:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),),
-                    Text('${_balanceBox.get(1)}\$', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),),
+                    const Text('Your Current Balance:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 18),),
+                    Text('${_balanceBox.get(1)}\$', style: TextStyle(color: navbarcolor, fontWeight: FontWeight.w500, fontSize: 18),),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Current Price:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),),
-                    Text('$price', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),),
+                    const Text('Current Price:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 18),),
+                    Text('$price \$', style: TextStyle(color: navbarcolor, fontWeight: FontWeight.w500, fontSize: 18),),
                   ],
                 ),
               ],

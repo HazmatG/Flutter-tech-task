@@ -26,17 +26,6 @@ class _WalletPageState extends State<WalletPage> {
     _balancereplenish.dispose();
   }
 
-
-  void _addBalanceData() {
-    _balanceBox.put(1, double.parse(_balancereplenish.text));
-    print(_balanceBox.get(1));
-  }
-
-  void _subtractBalanceData() {
-    _balanceBox.put(1, double.parse(_balancereplenish.text) - 100);
-    print(_balanceBox.get(1));
-  }
-
   repBalBottomSheet(BuildContext context) {
     showModalBottomSheet(context: context, builder: (BuildContext context) {
       return Container(
@@ -59,7 +48,7 @@ class _WalletPageState extends State<WalletPage> {
             ElevatedButton(
               onPressed: () async {
                 setState(() {
-                  _addBalanceData();
+                  _balanceBox.put(1, _balanceBox.get(1) + double.parse(_balancereplenish.text));
                   Navigator.pop(context);
                   _balancereplenish.text = '';
                   const snackbar = SnackBar(
@@ -107,6 +96,7 @@ class _WalletPageState extends State<WalletPage> {
             ElevatedButton(
               onPressed: () async {
                 setState(() {
+                  _balanceBox.put(1, _balanceBox.get(1) - double.parse(_moneywithdraw.text));
                   Navigator.pop(context);
                   _moneywithdraw.text = '';
                   const snackbar = SnackBar(

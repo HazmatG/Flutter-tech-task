@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:untitled3/pages/mainpage.dart';
-import 'package:untitled3/pages/marketspage/marketspage.dart';
 import 'package:untitled3/pages/tradepage/tradepage.dart';
 import 'package:untitled3/pages/walletpage/walletpage.dart';
 import 'package:untitled3/utils/const/routes.dart';
